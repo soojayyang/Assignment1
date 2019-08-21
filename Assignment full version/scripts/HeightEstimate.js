@@ -5,7 +5,7 @@ let deviceAbsolute = null;
 try
 {
     // initialising object for device orientation
-    deviceAbsolute = new AbsoluteOrientationSensor({ frequency: 10 });
+    deviceAbsolute = new AbsoluteOrientationSensor({ frequency: 60 });
 
     //if sensor is available but there is problem in using it
     deviceAbsolute.addEventListener('error', event => {
@@ -59,14 +59,14 @@ function reloadOrientationValues(deviceAbsolute)
 //feature 2
 //console.log(data);
   reading.push(data);
-  if (reading.length == 10) {
+  if (reading.length == 30) {
     let sum = 0;
     for (let i of reading) {
       sum += i;
     }
-    average = (sum / 10).toFixed(2);
+    average = Math.round((sum / 30)*100)/100;
     reading = [];
-    document.getElementById("tiltingAngle").innerText = average;
+    document.getElementById("tiltingAngle").innerText = average.toFixed(2);
   }
 }
 
@@ -115,7 +115,8 @@ function calculate() {
 
   //building height
   let A = topAngle - baseAngle;
-  let b = Math.sqrt(Math.pow(cameraHeight, 2) + Math.pow(distance, 2));
+  //let b = Math.sqrt(Math.pow(cameraHeight, 2) + Math.pow(distance, 2));
+  let b = cameraHeight/ (Math.cos(baseAngle * CONVERT_TO_RAD));
   let C = baseAngle;
   let B = 180 - A - C;
   let a = b/Math.sin(B*CONVERT_TO_RAD) * Math.sin(A*CONVERT_TO_RAD);
@@ -124,3 +125,4 @@ function calculate() {
   document.getElementById("heightOfObject").innerText = buildingHeight.toFixed(2);
  }
 }
+
