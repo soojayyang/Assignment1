@@ -59,14 +59,21 @@ function reloadOrientationValues(deviceAbsolute)
 //feature 2
 //console.log(data);
   reading.push(data);
-  if (reading.length == 30) {
+  if (reading.length == 20)
+  {
     let sum = 0;
-    for (let i of reading) {
+    for (let i of reading)
+    {
       sum += i;
     }
-    average = Math.round((sum / 30)*100)/100;
+    average = (sum / 20).toFixed(2);
     reading = [];
-    document.getElementById("tiltingAngle").innerText = average.toFixed(2);
+    document.getElementById("tiltingAngle").innerText = average;
+  }
+
+  if (cameraHeight && baseAngle && topAngle) 
+  {
+    document.getElementById("calculateButton").disabled = false;
   }
 }
 
@@ -75,25 +82,29 @@ function reloadOrientationValues(deviceAbsolute)
 //feature 3
 //set camera height
 let cameraHeight;
-function input() {
+function input()
+{
   cameraHeight = prompt("Input camera height: ");
-  while (isNaN(cameraHeight) || cameraHeight == 0) {
+  while (isNaN(cameraHeight) || cameraHeight == 0)
+  {
     cameraHeight = prompt("Please input valid camera height: ");
   }
   document.getElementById("heightOfCamera").innerText = cameraHeight;
 }
 
-//Feature 4
+//Feature 4a
 //set base height
 let baseAngle;
-function setBase() {
+function setBase()
+{
   baseAngle = average;
   document.getElementById("baseAngle").innerText = baseAngle;
 }
 
 //set top angle
 let topAngle;
-function setTop() {
+function setTop()
+{
   topAngle = average;
   document.getElementById("topAngle").innerText = topAngle;
 }
@@ -103,13 +114,6 @@ function calculate() {
   const CONVERT_TO_RAD= Math.PI/180;
 
   //distance
-  if (!cameraHeight) {
-  alert("Please enter camera height");
-  } else if (!topAngle) {
-  alert("Please set top angle");
-} else if (!baseAngle) {
-  alert("Please set base angle");
-  } else {
   let distance = Math.tan(baseAngle* CONVERT_TO_RAD) * cameraHeight;
   document.getElementById("distanceOfObject").innerText = distance.toFixed(2);
 
@@ -123,6 +127,4 @@ function calculate() {
   let buildingHeight = a;
 
   document.getElementById("heightOfObject").innerText = buildingHeight.toFixed(2);
- }
 }
-
