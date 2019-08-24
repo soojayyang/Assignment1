@@ -85,7 +85,7 @@ let cameraHeight;
 function input()
 {
   cameraHeight = prompt("Input camera height: ");
-  while (isNaN(cameraHeight) || cameraHeight == 0)
+  while (isNaN(cameraHeight) || cameraHeight <= 0)
   {
     cameraHeight = prompt("Please input valid camera height: ");
   }
