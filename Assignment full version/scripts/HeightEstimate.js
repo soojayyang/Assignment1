@@ -71,7 +71,7 @@ function reloadOrientationValues(deviceAbsolute)
     document.getElementById("tiltingAngle").innerText = average;
   }
 
-  if (cameraHeight && baseAngle && topAngle) 
+  if (cameraHeight && baseAngle && topAngle)
   {
     document.getElementById("calculateButton").disabled = false;
   }
@@ -98,7 +98,14 @@ let baseAngle;
 function setBase()
 {
   baseAngle = average;
-  document.getElementById("baseAngle").innerText = baseAngle;
+  if (baseAngle > 0 && baseAngle < 90)
+  {
+    document.getElementById("baseAngle").innerText = baseAngle;
+  }
+  else
+  {
+    alert("Base angle must be between 0 and 90 degree")
+  }
 }
 
 //set top angle
@@ -106,7 +113,14 @@ let topAngle;
 function setTop()
 {
   topAngle = average;
-  document.getElementById("topAngle").innerText = topAngle;
+  if (topAngle > 90 && topAngle < 180)
+  {
+    document.getElementById("topAngle").innerText = topAngle;
+  }
+  else
+  {
+    alert("Top angle must be between 90 and 180 degree")
+  }
 }
 
 //Feature 5 & 6
