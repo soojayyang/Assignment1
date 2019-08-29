@@ -1,6 +1,7 @@
 // Start: code for device orientation
 
 let deviceAbsolute = null;
+let errorRef = document.getElementById("toast");
 // try-catch: exception handling
 try
 {
@@ -46,7 +47,7 @@ catch (error)
 // function to print value on the webpage
 
 let reading = [];
-let average;
+let averageAngle;
 
 function reloadOrientationValues(deviceAbsolute)
 {
@@ -66,9 +67,9 @@ function reloadOrientationValues(deviceAbsolute)
     {
       sum += i;
     }
-    average = (sum / 20).toFixed(2);
+    averageAngle = Math.round((sum / 20)*100)/100;
     reading = [];
-    document.getElementById("tiltingAngle").innerText = average;
+    document.getElementById("tiltingAngle").innerText = averageAngle;
   }
 
   if (cameraHeight && baseAngle && topAngle)
@@ -84,42 +85,50 @@ function reloadOrientationValues(deviceAbsolute)
 let cameraHeight;
 function input()
 {
-  cameraHeight = prompt("Input camera height: ");
-  while (isNaN(cameraHeight) || cameraHeight <= 0)
+  cameraHeight = prompt("Input camera height (m): ");
+  if (isNaN(cameraHeight) || cameraHeight <= 0)
   {
-    cameraHeight = prompt("Please input valid camera height: ");
+    cameraHeight = 1.5;
+    alert("Camera Height invalid, set to default height");
   }
-  document.getElementById("heightOfCamera").innerText = cameraHeight;
+  else
+  {
+    alert("Camera Height successfully inputted");
+  }
+  document.getElementById("heightOfCamera").innerText = cameraHeight + "m";
 }
 
 //Feature 4a
 //set base height
-let baseAngle;
+let baseAngle = 0;
 function setBase()
 {
-  baseAngle = average;
-  if (baseAngle > 0 && baseAngle < 90)
+
+  if (averageAngle > 0 && averageAngle < 90)
   {
+    baseAngle = averageAngle;
+    alert("Base Angle successfully recorded");
     document.getElementById("baseAngle").innerText = baseAngle;
   }
   else
   {
-    alert("Base angle must be between 0 and 90 degree")
+    alert("Base angle must be between 0 and 90 degree");
   }
 }
 
 //set top angle
-let topAngle;
+let topAngle = 0;
 function setTop()
 {
-  topAngle = average;
-  if (topAngle > 90 && topAngle < 180)
+  if (averageAngle > 0 && averageAngle < 180 && averageAngle > baseAngle)
   {
+    topAngle = averageAngle;
+    alert("Top angle successfully recorded");
     document.getElementById("topAngle").innerText = topAngle;
   }
   else
   {
-    alert("Top angle must be between 90 and 180 degree")
+    alert("Top angle must be higher than base angle and below 180 degree");
   }
 }
 
@@ -129,7 +138,7 @@ function calculate() {
 
   //distance
   let distance = Math.tan(baseAngle* CONVERT_TO_RAD) * cameraHeight;
-  document.getElementById("distanceOfObject").innerText = distance.toFixed(2);
+  document.getElementById("distanceOfObject").innerText = distance.toFixed(2) + "m";
 
   //building height
   let A = topAngle - baseAngle;
@@ -140,5 +149,5 @@ function calculate() {
   let a = b/Math.sin(B*CONVERT_TO_RAD) * Math.sin(A*CONVERT_TO_RAD);
   let buildingHeight = a;
 
-  document.getElementById("heightOfObject").innerText = buildingHeight.toFixed(2);
+  document.getElementById("heightOfObject").innerText = buildingHeight.toFixed(2) + "m";
 }
