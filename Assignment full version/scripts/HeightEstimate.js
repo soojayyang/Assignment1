@@ -1,5 +1,6 @@
 /*
-Project Name : Sensor App 
+Project Name : Sensor App
+File Name: HeightEstimate.js
 Purpose: To calculate the height of an object 
          by using sensor app 
 Team: Team 191 
@@ -19,7 +20,7 @@ let errorRef = document.getElementById("toast");
 // try-catch: exception handling
 try
 {
-    // initialising object for device orientation
+    // instantiates object for device orientation
     deviceAbsolute = new AbsoluteOrientationSensor({ frequency: 60 });
 
     //if sensor is available but there is problem in using it
@@ -33,7 +34,7 @@ try
     {
       errorRef.innerText = "Cannot connect to the sensor.";
     }});
-    // when sensor has a reading, call the function
+    // when sensor detects a new reading, call the function
     deviceAbsolute.addEventListener('reading', () => reloadOrientationValues(deviceAbsolute));
 
     //start the sensor
@@ -58,7 +59,7 @@ catch (error)
   errorRef.innerText = errorText;
 }
 
-//declaring global variable reading to be an empty array 
+//initialize global variable reading to be an empty array 
 //which will contain a set of value of beta angle.
 let reading = [];
 
@@ -80,14 +81,15 @@ function reloadOrientationValues(deviceAbsolute)
 //smooth data
   //adding value into the empty array using .push method.
   reading.push(data);
-    
-  //pre-allocating maximum length accepted for empty array
-  if (reading.length == 20) 
+  
+  //initialize constant of maximum length accepted for empty array
+  const MAX_LENGTH = 20;   
+  if (reading.length == MAX_LENGTH) 
   {
-    //declaring global variable summation equal to zero
+    //initialize local variable summation equals to zero
     let sum = 0;
       
-    //initiasing for loop to sum all the elements in reading  
+    //create for loop to sum all the elements in reading  
     for (let i of reading) 
     {
       sum += i;
@@ -115,7 +117,7 @@ function reloadOrientationValues(deviceAbsolute)
 
 //feature 3
 //set camera height
-// declared global varibale for camera height
+// declare global varibale for camera height
 let cameraHeight; 
 
 //this function is designed to display camera height
@@ -141,7 +143,7 @@ function input()
 
 //Feature 4a
 //set base height
-//pre-allocate global variable base angle to be zero 
+//initialize global variable base angle to be zero 
 let baseAngle = 0; 
 function setBase()
 {
@@ -160,6 +162,7 @@ function setBase()
 }
 
 //set top angle
+//initialize global variable top angle to be zero 
 let topAngle = 0;
 function setTop()
 {
@@ -184,7 +187,7 @@ function setTop()
 //and calculate the height of an object
 function calculate()
 {
-  //declaring global variable CONVERT_TO_RAD
+  //initialize constant CONVERT_TO_RAD
   //which contain the formula to convert degree to radian,[1].
   const CONVERT_TO_RAD= Math.PI/180; 
 
