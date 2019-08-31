@@ -239,3 +239,4 @@ Reference List
 [1]"Trigonometry", Mathsisfun.com, 2016. [Online]. Available: https://www.mathsisfun.com/algebra/trigonometry.html.
 [2]"Sensors", Eng1003.monash, 2019. [Online]. Available: https://eng1003.monash/materials/walkthrough/sensors.html.
 [3]S, "Law of Sines Definition (Illustrated Mathematics Dictionary)", Mathsisfun.com, 2018. [Online]. Available: https://www.mathsisfun.com/definitions/law-of-sines.html
+*/
