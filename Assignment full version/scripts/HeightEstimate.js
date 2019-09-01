@@ -10,10 +10,10 @@ Vishan Tan
 Lai Khairren
 Soo Jay Yang
 Last Modified : 31/8/2019
-Reference Style: IEEE
 */
 
-// Start: code for device orientation,[2].
+// Start: code for device orientation
+//Sources code taken from Week 3 Pra Sensor Test App 
 
 let deviceAbsolute = null;
 let errorRef = document.getElementById("toast");
@@ -67,8 +67,24 @@ let reading = [];
 //which hold the value of the average tilting angle
 let averageAngle; 
 
-//this function print the value onto the webpage,[2].
+//reloadOrientationValues()
+//Sources code taken from Week 3 Pra Sensor Test App 
+
+//this function  print the value onto the webpage
 //and smooth the beta angle by finding average value
+//
+//argument: deviceAbsolute: this represent the class which contain
+//       the sensor code
+//
+//preconditions:
+//       deviceAbsolute must exist
+//
+//postconditions:
+//       beta angle value will pass from deviceAbsolute
+//
+//returns:
+//       this function will return the smoothed tilting angle
+//
 function reloadOrientationValues(deviceAbsolute)
 {
   let x = deviceAbsolute.quaternion[0];
@@ -120,7 +136,13 @@ function reloadOrientationValues(deviceAbsolute)
 // declare global varibale for camera height
 let cameraHeight; 
 
+//input()
+//
 //this function is designed to display camera height
+//
+//returns:
+//       this function will return the camera height
+//
 function input()
 {
   //promopt the user to input the camera height
@@ -145,6 +167,14 @@ function input()
 //set base height
 //initialize global variable base angle to be zero 
 let baseAngle = 0; 
+
+//setBase()
+//
+//this function will display the base angle in the app
+//
+//returns:
+//       this function will return the base angle
+//
 function setBase()
 {
   //validating the input for base angle
@@ -164,6 +194,14 @@ function setBase()
 //set top angle
 //initialize global variable top angle to be zero 
 let topAngle = 0;
+
+//setTop()
+//
+//this function will display the top angle in the app
+//
+//returns:
+//       this function will return the top angle
+//
 function setTop()
 {
   //validating the input for top angle
@@ -183,12 +221,22 @@ function setTop()
 //Feature 5 & 6
 //calculate the disance to the object
 //calculate the height of an object
+//
+//calculate()
+//
 //this function will calculate the distance to the object
-//and calculate the height of an object
+//and calculate the height of an object by using trigonometric identities
+//and sine rule
+//
+//returns:
+//       this function returns the distance to the object
+//       and the height of an object
+//
 function calculate()
 {
   //initialize constant CONVERT_TO_RAD
-  //which contain the formula to convert degree to radian,[1].
+  //which contain the formula to convert degree to radian
+  //Sources trigonometric identities taken from Mathsisfun.com
   const CONVERT_TO_RAD= Math.PI/180; 
 
   //calculating distance using tangent(base angle) equal to horizontal distance/camera height
@@ -199,13 +247,15 @@ function calculate()
   document.getElementById("distanceOfObject").innerText = distance.toFixed(2) + "m";
 
   //calculating angle 1 in the triangle
-  //which is the top angle minus base angle,[1].
+  //which is the top angle minus base angle
+  //Sources trigonometric identities taken from Mathsisfun.com
   //declaring global variable A
   //which hold the value of the angle 1
   let A = topAngle - baseAngle;
     
   //calculating the length of hypotenuse 
-  //by using cosine(base angle) equal to camera height/hypoteuse,[1].
+  //by using cosine(base angle) equal to camera height/hypoteuse
+  //Sources trigonometric identities taken from Mathsisfun.com
   //length of hypotenuse equal to camera height/cosine(base angle)
   //declaring b to be global variable 
   //which hold the value of length of hypotenuse
@@ -222,9 +272,10 @@ function calculate()
   let B = 180 - A - C;
     
   //calculating height of object
-  //by using sin rule
+  //by using sine rule
+  //Sources sine rule taken from Mathisfun.com
   //height of object/sin(angle 2) = length of hypotenuse/sin(angle 1)
-  //height of object = (length of hypotenuse/sin(angle 1)) * sin(angle 2),[3].
+  //height of object = (length of hypotenuse/sin(angle 1)) * sin(angle 2)
   //declaring global variable a
   //which hold the value of the height of object
   let a = b/Math.sin(B*CONVERT_TO_RAD) * Math.sin(A*CONVERT_TO_RAD);
@@ -237,9 +288,3 @@ function calculate()
   document.getElementById("heightOfObject").innerText = buildingHeight.toFixed(2) + "m";
 }
 
-/*
-Reference List
-[1]"Trigonometry", Mathsisfun.com, 2016. [Online]. Available: https://www.mathsisfun.com/algebra/trigonometry.html.
-[2]"Sensors", Eng1003.monash, 2019. [Online]. Available: https://eng1003.monash/materials/walkthrough/sensors.html.
-[3]S, "Law of Sines Definition (Illustrated Mathematics Dictionary)", Mathsisfun.com, 2018. [Online]. Available: https://www.mathsisfun.com/definitions/law-of-sines.html
-*/
