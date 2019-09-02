@@ -7,7 +7,7 @@ Team: Team 191
 Authors :
 Woon Siang Yi
 Vishan Tan 
-Lai Khairren
+Lai Khairenn
 Soo Jay Yang
 Last Modified : 31/8/2019
 */
